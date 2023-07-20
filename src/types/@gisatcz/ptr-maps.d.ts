@@ -13,6 +13,7 @@ declare module "@gisatcz/ptr-maps" {
     mapKey?: string;
     view?: object;
     backgroundLayer?: object;
+    layers?: Array;
   }
 
   export class PresentationMap extends React.Component<
