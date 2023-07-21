@@ -14,6 +14,7 @@ declare module "@gisatcz/ptr-maps" {
     view?: object;
     backgroundLayer?: object;
     layers?: Array;
+    onViewChange?: function;
   }
 
   export class PresentationMap extends React.Component<

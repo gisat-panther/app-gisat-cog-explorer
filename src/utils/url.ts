@@ -2,7 +2,7 @@
 // searchParams with a provided key/value pair
 export const createQueryString = (
   name: string,
-  value: string,
+  value: string | number,
   searchParams: string[][]
 ) => {
   const params = new URLSearchParams(searchParams);

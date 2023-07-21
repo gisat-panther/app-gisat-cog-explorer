@@ -2,15 +2,16 @@
 
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { createQueryString } from '../../utils/url'
+import CogBitmapParams from '@/data/CogBitmapParams'
 import { useCallback } from 'react'
-import { log } from 'console'
+
+import BoolOption from './options/BoolOption'
+
 
 function CogRasterForm() {
-  // const searchParams = useSearchParams();
-  // const params = useParams();
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()!
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const cogUrl = searchParams.get('cogUrl')
   const channel = searchParams.get('channel')
@@ -30,20 +31,20 @@ function CogRasterForm() {
   //   [searchParams]
   // )
 
-  const onUrlChange = (evt) => {
+  const onUrlChange = (evt: any) => {
     const cogUrl = evt.target.value;
-    router.push(pathname + '?' + createQueryStringCallback('cogUrl', cogUrl, searchParams).toString())
+    router.push(pathname + '?' + createQueryStringCallback('cogUrl', cogUrl, Array.from(searchParams.entries())).toString())
   }
 
-  const onChannelChange = (evt) => {
+  const onChannelChange = (evt: any) => {
     const channel = evt.target.value;
-    router.push(pathname + '?' + createQueryStringCallback('channel', channel, searchParams).toString())
+    router.push(pathname + '?' + createQueryStringCallback('channel', channel, Array.from(searchParams.entries())).toString())
   }
 
-  const onUseHeatMapChange = (evt) => {
+  const onUseHeatMapChange = (evt: any) => {
     const useHeatMap = evt.target.checked;
 
-    router.push(pathname + '?' + createQueryStringCallback('useHeatMap', useHeatMap, searchParams).toString())
+    router.push(pathname + '?' + createQueryStringCallback('useHeatMap', useHeatMap, Array.from(searchParams.entries())).toString())
   }
 
   return <form>
@@ -61,13 +62,44 @@ function CogRasterForm() {
         Which channel will be visible. Could be empty.
       </p>
     </label>
-    <label className="block">
-      <span className="block text-sm font-medium text-slate-700">useHeatMap</span>
-      <input className="border-slate-200 placeholder-slate-400 contrast-more:border-slate-400 contrast-more:placeholder-slate-500 text-pink-500" onChange={onUseHeatMapChange} checked={useHeatMap === true} type='checkbox' />
+    {
+      CogBitmapParams.map(d => <BoolOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue}>
+        <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
+          {d.description}
+        </p>
+      </BoolOption>)
+    }
+
+    {/* <BoolOption title={'useAutoRange'} name={'useAutoRange'} >
       <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
-        Which channel will be visible. Could be empty.
+        Set automatic range of color gradient (default false).
       </p>
-    </label>
+    </BoolOption>
+
+    <BoolOption title={'useDataForOpacity'} name={'useDataForOpacity'} >
+      <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
+        Visualise data with opacity of each pixel according to its value (default false)
+      </p>
+    </BoolOption>
+
+    <BoolOption title={'useHeatMap'} name={'useHeatMap'} >
+      <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
+        Generate data as a color heatmap (default true) useChannel : number | null - specify a single channel to use (default null)
+      </p>
+    </BoolOption>
+
+    <BoolOption title={'useColorsBasedOnValues'} name={'useColorsBasedOnValues'} >
+      <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
+        Assign pixels colors based on defined data values (default false)
+      </p>
+    </BoolOption>
+
+    <BoolOption title={'useSingleColor'} name={'useSingleColor'} >
+      <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
+        Display data values only with single color (default false)
+      </p>
+    </BoolOption> */}
+
   </form>
 }
 
