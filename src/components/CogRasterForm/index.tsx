@@ -7,6 +7,7 @@ import { useCallback } from 'react'
 
 import BoolOption from './options/BoolOption'
 import NumberOption from './options/NumberOption'
+import ColorOption from './options/ColorOption'
 
 
 function CogRasterForm() {
@@ -37,18 +38,7 @@ function CogRasterForm() {
     router.push(pathname + '?' + createQueryStringCallback('cogUrl', cogUrl, Array.from(searchParams.entries())).toString())
   }
 
-  const onChannelChange = (evt: any) => {
-    const channel = evt.target.value;
-    router.push(pathname + '?' + createQueryStringCallback('channel', channel, Array.from(searchParams.entries())).toString())
-  }
-
-  const onUseHeatMapChange = (evt: any) => {
-    const useHeatMap = evt.target.checked;
-
-    router.push(pathname + '?' + createQueryStringCallback('useHeatMap', useHeatMap, Array.from(searchParams.entries())).toString())
-  }
-
-  return <form>
+  return <div>
     <label className="block">
       <span className="block text-sm font-medium text-slate-700">COG Url</span>
       <input className="border-slate-200 placeholder-slate-400 contrast-more:border-slate-400 contrast-more:placeholder-slate-500 text-pink-500" onChange={onUrlChange} value={cogUrl?.toString()} />
@@ -71,6 +61,12 @@ function CogRasterForm() {
                 {d.description}
               </p>
             </NumberOption>
+          case 'color':
+            return <ColorOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue}>
+              <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
+                {d.description}
+              </p>
+            </ColorOption>
           default:
             return null
         }
@@ -108,7 +104,7 @@ function CogRasterForm() {
       </p>
     </BoolOption> */}
 
-  </form>
+  </div>
 }
 
 export default CogRasterForm;

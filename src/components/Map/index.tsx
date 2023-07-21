@@ -86,13 +86,48 @@ function Map() {
     return values;
   }
 
+  const getAsColor = (string: string) => {
+    try {
+      const parsed = string.split(",");
+      if (parsed && parsed.length === 4) {
+        const numericColor = parsed.map(n => Number.parseInt(n) || n)
+        if (numericColor.every(i => Number.isFinite(i))) {
+          return numericColor
+        } else {
+          return null
+        }
+      } else {
+        return null
+      }
+    } catch (error) {
+      return null
+    }
+  }
+
+  const getColorValues = () => {
+
+    const values: params = {}
+
+    for (const p of CogBitmapParams) {
+      if (p.type === 'color') {
+        const asColor = getAsColor(paramsRef.current[p.name])
+        if (asColor) {
+          values[p.name] = asColor
+        }
+      }
+    }
+
+    return values;
+  }
+
   const getParams = () => {
     const values = {
       ...getBoolValues(),
       ...getNumberValues(),
+      ...getColorValues(),
 
-      colorScale: ['#fde725', '#5dc962', '#20908d', '#3a528b', '#440154'],
-      colorScaleValueRange: [1, 100, 200, 300, 366],
+      // colorScale: ['#fde725', '#5dc962', '#20908d', '#3a528b', '#440154'],
+      // colorScaleValueRange: [1, 100, 200, 300, 366],
     }
     return values;
   }

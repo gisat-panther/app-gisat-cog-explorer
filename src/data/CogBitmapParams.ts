@@ -2,7 +2,7 @@ interface BitmapDefinition {
   name: string;
   title: string;
   description: string;
-  defaultValue: string | boolean | number | null;
+  defaultValue: string | boolean | number | null | Array<number>;
   type: string;
 }
 
@@ -65,7 +65,14 @@ const params: Array<BitmapDefinition> = [
     defaultValue: null,
     type: "number",
   },
-  // FIXME - clippedColor
+  {
+    name: "clippedColor",
+    title: "clippedColor",
+    description:
+      "Set color for clipped values when using clipLow or clipHigh, (default [0, 0, 0, 0])",
+    defaultValue: [0, 0, 0, 0],
+    type: "color",
+  },
   // FIXME - colorScale
   // FIXME - colorScaleValueRange
   {
@@ -77,10 +84,36 @@ const params: Array<BitmapDefinition> = [
     type: "bool",
   },
   // FIXME - colorsBasedOnValues
-  // FIXME - unidentifiedColor
-  // FIXME - nullColor
-  // FIXME - useSingleColor
-  // FIXME - color
+  {
+    name: "unidentifiedColor",
+    title: "unidentifiedColor",
+    description:
+      "Set color for not identified values if useColorsBasedOnValues is true, (default [0, 0, 0, 0])",
+    defaultValue: [0, 0, 0, 0],
+    type: "color",
+  },
+  {
+    name: "nullColor",
+    title: "nullColor",
+    description: "Set color for noData values (default [0, 0, 0, 0])",
+    defaultValue: [0, 0, 0, 0],
+    type: "color",
+  },
+  {
+    name: "useSingleColor",
+    title: "useSingleColor",
+    description: "Display data values only with single color (default false)",
+    defaultValue: false,
+    type: "bool",
+  },
+  {
+    name: "color",
+    title: "color",
+    description:
+      "Set color when if useSingleColor is true, (default [255, 0, 255, 255])",
+    defaultValue: [0, 0, 0, 0],
+    type: "color",
+  },
 ];
 
 export default params;
