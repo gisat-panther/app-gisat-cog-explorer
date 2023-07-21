@@ -73,8 +73,22 @@ const params: Array<BitmapDefinition> = [
     defaultValue: [0, 0, 0, 0],
     type: "color",
   },
-  // FIXME - colorScale
-  // FIXME - colorScaleValueRange
+  {
+    name: "colorScale",
+    title: "colorScale",
+    description:
+      "Array of colors, supports chroma.js color definition such as 'red', [255,0,0], '#FF0000', etc. and Color Brewer pallete names in this format: chroma.brewer.Greens",
+    defaultValue: null,
+    type: "array",
+  },
+  {
+    name: "colorScaleValueRange",
+    title: "colorScaleValueRange",
+    description:
+      "Set min and max range values or set any array of values to set exact colors to values, if useAutoRange is false, (default [0,255])",
+    defaultValue: [0, 255],
+    type: "array",
+  },
   {
     name: "useColorsBasedOnValues",
     title: "useColorsBasedOnValues",
@@ -83,7 +97,14 @@ const params: Array<BitmapDefinition> = [
     defaultValue: false,
     type: "bool",
   },
-  // FIXME - colorsBasedOnValues
+  {
+    name: "colorsBasedOnValues",
+    title: "colorsBasedOnValues",
+    description:
+      "Array of value-color pairs, used if useColorsBasedOnValues is true, supports chroma.js color definition such as 'red', [255,0,0], '#FF0000', etc.",
+    defaultValue: null,
+    type: "array",
+  },
   {
     name: "unidentifiedColor",
     title: "unidentifiedColor",

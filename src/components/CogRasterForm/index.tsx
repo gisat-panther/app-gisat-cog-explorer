@@ -8,6 +8,7 @@ import { useCallback } from 'react'
 import BoolOption from './options/BoolOption'
 import NumberOption from './options/NumberOption'
 import ColorOption from './options/ColorOption'
+import ArrayOption from './options/ArrayOption'
 
 
 function CogRasterForm() {
@@ -67,6 +68,12 @@ function CogRasterForm() {
                 {d.description}
               </p>
             </ColorOption>
+          case 'array':
+            return <ArrayOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue}>
+              <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
+                {d.description}
+              </p>
+            </ArrayOption>
           default:
             return null
         }
