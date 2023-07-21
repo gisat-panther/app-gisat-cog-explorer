@@ -7,7 +7,6 @@ import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { createQueryString } from '../../utils/url'
 
 import CogBitmapParams from '@/data/CogBitmapParams'
-// import params from "@/data/CogBitmapParams";
 
 // https://gisat-gis.eu-central-1.linodeobjects.com/esaGdaAdbNepal23/rasters/snow_cover_cog/WET_SNOW_3857_2017-2021_cog_deflate_in16_zoom16_levels8.tif
 // https://gisat-gis.eu-central-1.linodeobjects.com/esaGdaAdbNepal23/rasters/sentinel_cog/2019-11-12-00_00_2019-11-12-23_59_Sentinel-2_L1C_SWIR_cog_nodata.tif
@@ -48,14 +47,6 @@ function Map() {
 
   const paramsRef = useRef(dafaultParams)
 
-
-  const channelRef = useRef<string | null>()
-  const channel = searchParams.get('channel')
-
-  // const useHeatMapRef = useRef(false)
-  // const useHeatMap = searchParams.get('useHeatMap')
-
-
   const [cogBitmapLayer, setCogBitmapLayer] = useState<LayerDefinition | null>(null);
 
   const increaseLayerVersion = () => {
@@ -64,9 +55,7 @@ function Map() {
 
   const getBoolValues = () => {
 
-    const values: params = {
-      // ...(useHeatMapRef.current ? { useHeatMap: useHeatMapRef.current } : {}),
-    }
+    const values: params = {}
 
     for (const p of CogBitmapParams) {
       if (p.type === 'bool') {
@@ -80,13 +69,28 @@ function Map() {
     return values;
   }
 
-  const getParams = () => {
-    const parsedChannel = Number.parseInt(channelRef.current || '');
+  const getNumberValues = () => {
 
+    const values: params = {}
+
+    for (const p of CogBitmapParams) {
+      if (p.type === 'number') {
+        const parsed = Number.parseFloat(paramsRef.current[p.name]);
+
+        if (searchParams.has(p.name) && Number.isFinite(parsed) && parsed !== p.defaultValue) {
+          values[p.name] = parsed
+        }
+      }
+    }
+
+    return values;
+  }
+
+  const getParams = () => {
     const values = {
       ...getBoolValues(),
+      ...getNumberValues(),
 
-      ...(Number.isFinite(parsedChannel) ? { useChannel: parsedChannel } : {}),
       colorScale: ['#fde725', '#5dc962', '#20908d', '#3a528b', '#440154'],
       colorScaleValueRange: [1, 100, 200, 300, 366],
     }
@@ -98,7 +102,7 @@ function Map() {
 
     const params = getParams()
 
-    console.log("xxx_params", params);
+    console.log("FINAL_COG_PATAMS", params);
 
 
     const layerDefinition: LayerDefinition = {
@@ -122,15 +126,6 @@ function Map() {
     initLayer();
   }
 
-  if (channelRef.current !== channel) {
-    channelRef.current = channel;
-    initLayer();
-  }
-  // if (useHeatMapRef.current !== useHeatMap) {
-  //   useHeatMapRef.current = useHeatMap;
-  //   initLayer();
-  // }
-
   const changeRef = useRef(false);
 
   for (const p of CogBitmapParams) {
@@ -149,7 +144,6 @@ function Map() {
 
   if (changeRef.current === true) {
     initLayer();
-    console.log("xxx_paramsRef", paramsRef.current);
 
     changeRef.current = false
   }
@@ -170,15 +164,10 @@ function Map() {
     boxRange: boxRange || 10000
   }
 
-  console.log("xxx_initView", initView);
-
-
   const viewRef = useRef(initView)
   const [viewState, setViewState] = useState(initView)
 
   const onViewChange = (view: any) => {
-    console.log("xxx", view);
-
     viewRef.current = {
       ...viewRef.current, ...view
     }

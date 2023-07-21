@@ -6,6 +6,7 @@ import CogBitmapParams from '@/data/CogBitmapParams'
 import { useCallback } from 'react'
 
 import BoolOption from './options/BoolOption'
+import NumberOption from './options/NumberOption'
 
 
 function CogRasterForm() {
@@ -55,19 +56,26 @@ function CogRasterForm() {
         We need this to steal your identity.
       </p> */}
     </label>
-    <label className="block">
-      <span className="block text-sm font-medium text-slate-700">useChannel</span>
-      <input className="border-slate-200 placeholder-slate-400 contrast-more:border-slate-400 contrast-more:placeholder-slate-500 text-pink-500" onChange={onChannelChange} value={channel?.toString()} type='number' />
-      <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
-        Which channel will be visible. Could be empty.
-      </p>
-    </label>
     {
-      CogBitmapParams.map(d => <BoolOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue}>
-        <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
-          {d.description}
-        </p>
-      </BoolOption>)
+      CogBitmapParams.map(d => {
+        switch (d.type) {
+          case 'bool':
+            return <BoolOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue}>
+              <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
+                {d.description}
+              </p>
+            </BoolOption>
+          case 'number':
+            return <NumberOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue}>
+              <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
+                {d.description}
+              </p>
+            </NumberOption>
+          default:
+            return null
+        }
+
+      })
     }
 
     {/* <BoolOption title={'useAutoRange'} name={'useAutoRange'} >
