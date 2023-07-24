@@ -11,7 +11,7 @@ export default function ({ title, name, defaultValue, children }: { name: string
 
 	const onChanged = (evt: any) => {
 		const val = evt.target.value;
-		router.push(pathname + '?' + createQueryStringCallback(name, val, Array.from(searchParams.entries())).toString(), { scroll: false })
+		router.push('?' + createQueryStringCallback(name, val, Array.from(searchParams.entries())).toString(), { scroll: false })
 
 	}
 
