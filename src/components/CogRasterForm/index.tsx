@@ -50,25 +50,25 @@ function CogRasterForm() {
         switch (d.type) {
           case 'bool':
             return <BoolOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue}>
-              <p className="mt-2 text-slate-600 text-sm text-gray-800">
+              <p className="mt-2 text-sm text-gray-800">
                 {d.description}
               </p>
             </BoolOption>
           case 'number':
             return <NumberOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue}>
-              <p className="mt-2 text-slate-600 text-sm text-gray-800">
+              <p className="mt-2 text-sm text-gray-800">
                 {d.description}
               </p>
             </NumberOption>
           case 'color':
             return <ColorOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue}>
-              <p className="mt-2 text-slate-600 text-sm text-gray-800">
+              <p className="mt-2 text-sm text-gray-800">
                 {d.description}
               </p>
             </ColorOption>
           case 'array':
             return <ArrayOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue}>
-              <p className="mt-2 text-slate-600 text-sm text-gray-800">
+              <p className="mt-2 text-sm text-gray-800">
                 {d.description}
               </p>
             </ArrayOption>
