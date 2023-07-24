@@ -172,7 +172,7 @@ function Map() {
 
     const params = getParams()
 
-    console.log("FINAL_COG_PATAMS", params);
+    console.log("FINAL_COG_PARAMS", params);
 
 
     const layerDefinition: LayerDefinition = {

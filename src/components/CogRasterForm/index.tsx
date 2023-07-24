@@ -34,13 +34,13 @@ function CogRasterForm() {
 
   const onUrlChange = (evt: any) => {
     const cogUrl = evt.target.value;
-    router.push(pathname + '?' + createQueryStringCallback('cogUrl', cogUrl, Array.from(searchParams.entries())).toString(), { scroll: false })
+    router.push('?' + createQueryStringCallback('cogUrl', cogUrl, Array.from(searchParams.entries())).toString(), { scroll: false })
   }
 
-  return <div>
+  return <div className='flex flex-col space-y-4 bg-gray-200"'>
     <label className="block">
-      <span className="block text-sm font-medium text-slate-700">COG Url</span>
-      <input className="border-slate-200 placeholder-slate-400 contrast-more:border-slate-400 contrast-more:placeholder-slate-500 text-pink-500" onChange={onUrlChange} value={cogUrl?.toString()} />
+      <span className="block text-l font-medium text-slate-700 text-white">COG Url</span>
+      <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={onUrlChange} value={cogUrl?.toString()} />
       {/* <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
         We need this to steal your identity.
       </p> */}
@@ -50,25 +50,25 @@ function CogRasterForm() {
         switch (d.type) {
           case 'bool':
             return <BoolOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue}>
-              <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
+              <p className="mt-2 text-slate-600 text-sm text-gray-800">
                 {d.description}
               </p>
             </BoolOption>
           case 'number':
             return <NumberOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue}>
-              <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
+              <p className="mt-2 text-slate-600 text-sm text-gray-800">
                 {d.description}
               </p>
             </NumberOption>
           case 'color':
             return <ColorOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue}>
-              <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
+              <p className="mt-2 text-slate-600 text-sm text-gray-800">
                 {d.description}
               </p>
             </ColorOption>
           case 'array':
             return <ArrayOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue}>
-              <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
+              <p className="mt-2 text-slate-600 text-sm text-gray-800">
                 {d.description}
               </p>
             </ArrayOption>
@@ -78,37 +78,6 @@ function CogRasterForm() {
 
       })
     }
-
-    {/* <BoolOption title={'useAutoRange'} name={'useAutoRange'} >
-      <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
-        Set automatic range of color gradient (default false).
-      </p>
-    </BoolOption>
-
-    <BoolOption title={'useDataForOpacity'} name={'useDataForOpacity'} >
-      <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
-        Visualise data with opacity of each pixel according to its value (default false)
-      </p>
-    </BoolOption>
-
-    <BoolOption title={'useHeatMap'} name={'useHeatMap'} >
-      <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
-        Generate data as a color heatmap (default true) useChannel : number | null - specify a single channel to use (default null)
-      </p>
-    </BoolOption>
-
-    <BoolOption title={'useColorsBasedOnValues'} name={'useColorsBasedOnValues'} >
-      <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
-        Assign pixels colors based on defined data values (default false)
-      </p>
-    </BoolOption>
-
-    <BoolOption title={'useSingleColor'} name={'useSingleColor'} >
-      <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
-        Display data values only with single color (default false)
-      </p>
-    </BoolOption> */}
-
   </div>
 }
 

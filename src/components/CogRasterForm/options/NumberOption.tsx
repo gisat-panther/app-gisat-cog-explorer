@@ -16,8 +16,8 @@ export default function ({ title, name, defaultValue, children }: { name: string
 	}
 
 	return <label className="block">
-		<span className="block text-sm font-medium text-slate-700">{title}</span>
-		<input className="border-slate-200 placeholder-slate-400 contrast-more:border-slate-400 contrast-more:placeholder-slate-500 text-pink-500" onChange={onChanged} value={urlVal} type='number' placeholder={defaultValue} step="any" />
+		<span className="block text-l font-medium text-slate-700 text-white">{title}</span>
+		<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={onChanged} value={urlVal} type='number' placeholder={defaultValue} step="any" />
 		{children}
 	</label>
 }
