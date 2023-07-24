@@ -20,8 +20,8 @@ type LayerDefinition = {
   layerKey: string;
   name: string;
   options: {
-    colorScale: string[];
-    colorScaleValueRange: number[];
+    colorScale?: string[];
+    colorScaleValueRange?: number[];
     useChannel?: number | undefined;
     url: undefined | string;
     type: string;

@@ -6,7 +6,7 @@ export const createQueryString = (
   searchParams: string[][]
 ) => {
   const params = new URLSearchParams(searchParams);
-  params.set(name, value);
+  params.set(name, value.toString());
 
   // return params.toString();
   return params;
