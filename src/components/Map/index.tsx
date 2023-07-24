@@ -248,7 +248,7 @@ function Map() {
     const p2 = createQueryStringCallback('lat', viewRef.current.center.lat, Array.from(p1.entries()))
     const p3 = createQueryStringCallback('boxRange', viewRef.current.boxRange, Array.from(p2.entries()))
 
-    router.push(pathname + '?' + p3.toString())
+    router.push(pathname + '?' + p3.toString(), { scroll: false })
   }
 
   return <DeckGlMap

@@ -17,8 +17,6 @@ function CogRasterForm() {
   const searchParams = useSearchParams();
 
   const cogUrl = searchParams.get('cogUrl')
-  const channel = searchParams.get('channel')
-  const useHeatMap = searchParams.get('useHeatMap') === 'true'
 
   const createQueryStringCallback = useCallback(createQueryString, [searchParams])
 
@@ -36,7 +34,7 @@ function CogRasterForm() {
 
   const onUrlChange = (evt: any) => {
     const cogUrl = evt.target.value;
-    router.push(pathname + '?' + createQueryStringCallback('cogUrl', cogUrl, Array.from(searchParams.entries())).toString())
+    router.push(pathname + '?' + createQueryStringCallback('cogUrl', cogUrl, Array.from(searchParams.entries())).toString(), { scroll: false })
   }
 
   return <div>
