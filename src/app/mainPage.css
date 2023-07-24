@@ -3,5 +3,8 @@
 }
 
 .side-panel{
-	background-color: green;
+	background-color: #2e55b4;
+	height: 100vh;
+    overflow: scroll;
+	padding: 2rem;
 }
