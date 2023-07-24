@@ -230,8 +230,8 @@ function Map() {
     };
     boxRange: string | number;
   } = {
-    center: { lon: Number.parseFloat(lon) || 50.35, lat: Number.parseFloat(lat) || 15.8 },
-    boxRange: boxRange || 10000
+    center: { lon: Number.parseFloat(lon) || 14.35, lat: Number.parseFloat(lat) || 49.92 },
+    boxRange: boxRange || 94088
   }
 
   const viewRef = useRef(initView)
