@@ -37,7 +37,7 @@ function CogRasterForm() {
     router.push('?' + createQueryStringCallback('cogUrl', cogUrl, Array.from(searchParams.entries())).toString(), { scroll: false })
   }
 
-  return <div className='flex flex-col space-y-4 bg-gray-200"'>
+  return <div className='ptr-form flex flex-col space-y-4 bg-gray-200"'>
     <label className="block">
       <span className="block text-l font-medium text-slate-700 text-white">COG Url</span>
       <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={onUrlChange} value={cogUrl?.toString()} />

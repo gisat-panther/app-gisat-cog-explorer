@@ -1,7 +1,7 @@
 interface BitmapDefinition {
   name: string;
   title: string;
-  description: string;
+  description: string | JSX.Element;
   defaultValue: string | boolean | number | null | Array<number>;
   type: string;
 }
@@ -76,8 +76,13 @@ const params: Array<BitmapDefinition> = [
   {
     name: "colorScale",
     title: "colorScale",
-    description:
-      "Array of colors, supports chroma.js color definition such as 'red', [255,0,0], '#FF0000', etc. and Color Brewer pallete names in this format: chroma.brewer.Greens",
+    description: (
+      <>
+        Array of colors, supports <a href={"https://vis4.net/labs/multihue/"} className={"text-white underline"} target="blank">chroma.js</a> color definition such as 'red',
+        [255,0,0], '#FF0000', etc. and Color Brewer pallete names in this
+        format: chroma.brewer.Greens
+      </>
+    ),
     defaultValue: null,
     type: "array",
   },
