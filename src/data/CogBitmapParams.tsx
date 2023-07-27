@@ -121,14 +121,14 @@ const params: Array<BitmapDefinition> = [
     description:
       "Set color for not identified values if useColorsBasedOnValues is true, (default [0, 0, 0, 0])",
     defaultValue: [0, 0, 0, 0],
-    type: "color",
+    type: { inputType: "text", value: "color" },
   },
   {
     name: "nullColor",
     title: "nullColor",
     description: "Set color for noData values (default [0, 0, 0, 0])",
     defaultValue: [0, 0, 0, 0],
-    type: "color",
+    type: { inputType: "text", value: "color" },
   },
   {
     name: "useSingleColor",
@@ -143,7 +143,7 @@ const params: Array<BitmapDefinition> = [
     description:
       "Set color when if useSingleColor is true, (default [255, 0, 255, 255])",
     defaultValue: [0, 0, 0, 0],
-    type: "color",
+    type: { inputType: "text", value: "color" },
   },
 ];
 
