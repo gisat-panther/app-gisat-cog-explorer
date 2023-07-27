@@ -1,9 +1,14 @@
+type TypeDefinition = {
+  inputType: string,
+  value: string
+}
+
 interface BitmapDefinition {
   name: string;
   title: string;
   description: string | JSX.Element;
   defaultValue: string | boolean | number | null | Array<number>;
-  type: string;
+  type: string | TypeDefinition;
 }
 
 const params: Array<BitmapDefinition> = [
@@ -71,7 +76,7 @@ const params: Array<BitmapDefinition> = [
     description:
       "Set color for clipped values when using clipLow or clipHigh, (default [0, 0, 0, 0])",
     defaultValue: [0, 0, 0, 0],
-    type: "color",
+    type: { inputType: "text", value: "color" },
   },
   {
     name: "colorScale",
@@ -79,12 +84,12 @@ const params: Array<BitmapDefinition> = [
     description: (
       <>
         Array of colors, supports <a href={"https://vis4.net/labs/multihue/"} className={"text-white underline"} target="blank">chroma.js</a> color definition such as 'red',
-        [255,0,0], '#FF0000', etc. and Color Brewer pallete names in this
+        [255,0,0], '#FF0000', etc. and <a href={"https://r-graph-gallery.com/38-rcolorbrewers-palettes.html"} className={"text-white underline"} target="blank">Color Brewer</a> pallete names in this
         format: chroma.brewer.Greens
       </>
     ),
     defaultValue: null,
-    type: "array",
+    type: { inputType: "text", value: "colorScale" },
   },
   {
     name: "colorScaleValueRange",
@@ -93,6 +98,7 @@ const params: Array<BitmapDefinition> = [
       "Set min and max range values or set any array of values to set exact colors to values, if useAutoRange is false, (default [0,255])",
     defaultValue: [0, 255],
     type: "array",
+    // type: { inputType: "text", value: "commaSeparatedNumbers" },
   },
   {
     name: "useColorsBasedOnValues",

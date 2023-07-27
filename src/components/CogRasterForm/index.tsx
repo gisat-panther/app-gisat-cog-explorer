@@ -2,14 +2,27 @@
 
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { createQueryString } from '../../utils/url'
+import { isValidColor, isValidColorScale } from '../../utils/dataTypes'
 import CogBitmapParams from '@/data/CogBitmapParams'
 import { useCallback } from 'react'
 
 import BoolOption from './options/BoolOption'
 import NumberOption from './options/NumberOption'
 import ColorOption from './options/ColorOption'
+import TextOption from './options/TextOption'
 import ArrayOption from './options/ArrayOption'
 
+const getValidator = (validatorType: string) => {
+
+  switch (validatorType) {
+    case 'color':
+      return isValidColor
+    case 'colorScale':
+      return isValidColorScale
+    default:
+      return null
+  }
+}
 
 function CogRasterForm() {
   const router = useRouter();
@@ -47,7 +60,9 @@ function CogRasterForm() {
     </label>
     {
       CogBitmapParams.map(d => {
-        switch (d.type) {
+        const type = typeof d.type === 'string' ? d.type : d.type.inputType
+        const value = typeof d.type === 'object' ? d.type.value : null
+        switch (type) {
           case 'bool':
             return <BoolOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue}>
               <p className="mt-2 text-sm text-gray-800">
@@ -66,8 +81,14 @@ function CogRasterForm() {
                 {d.description}
               </p>
             </ColorOption>
+          case 'text':
+            return <TextOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue} validation={typeof d.type === 'object' ? getValidator(d.type.value) : undefined}>
+              <p className="mt-2 text-sm text-gray-800">
+                {d.description}
+              </p>
+            </TextOption>
           case 'array':
-            return <ArrayOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue}>
+            return <ArrayOption title={d.title} name={d.name} key={d.name} defaultValue={d.defaultValue} validation={typeof d.type === 'object' ? getValidator(d.type.value) : undefined}>
               <p className="mt-2 text-sm text-gray-800">
                 {d.description}
               </p>
@@ -78,7 +99,7 @@ function CogRasterForm() {
 
       })
     }
-  </div>
+  </div >
 }
 
 export default CogRasterForm;

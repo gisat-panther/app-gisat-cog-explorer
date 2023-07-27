@@ -5,8 +5,10 @@ import { useRef, useState, useCallback } from 'react';
 
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { createQueryString } from '../../utils/url'
+import { transformToColor, transformToColorScale } from '../../utils/dataTypes'
 
 import CogBitmapParams from '@/data/CogBitmapParams'
+import chroma from "chroma-js";
 
 // https://gisat-gis.eu-central-1.linodeobjects.com/esaGdaAdbNepal23/rasters/snow_cover_cog/WET_SNOW_3857_2017-2021_cog_deflate_in16_zoom16_levels8.tif
 // https://gisat-gis.eu-central-1.linodeobjects.com/esaGdaAdbNepal23/rasters/sentinel_cog/2019-11-12-00_00_2019-11-12-23_59_Sentinel-2_L1C_SWIR_cog_nodata.tif
@@ -90,24 +92,6 @@ function Map() {
     return values;
   }
 
-  const getAsColor = (string: string) => {
-    try {
-      const parsed = string.split(",");
-      if (parsed && parsed.length === 4) {
-        const numericColor = parsed.map(n => Number.parseInt(n) || n)
-        if (numericColor.every(i => Number.isFinite(i))) {
-          return numericColor
-        } else {
-          return null
-        }
-      } else {
-        return null
-      }
-    } catch (error) {
-      return null
-    }
-  }
-
   const getAsArray = (string: string) => {
     try {
       const parsed = string.split(",");
@@ -128,13 +112,38 @@ function Map() {
 
     for (const p of CogBitmapParams) {
       if (p.type === 'color') {
-        const asColor = getAsColor(paramsRef.current[p.name])
-        if (asColor) {
+        const asColor = transformToColor(paramsRef.current[p.name])
+        if (chroma.valid(asColor)) {
           values[p.name] = asColor
         }
       }
     }
 
+    return values;
+  }
+
+  const getTextValues = () => {
+
+    const values: params = {}
+
+    for (const p of CogBitmapParams) {
+      const type = typeof p.type === 'string' ? p.type : p.type.inputType
+      if (type === 'text') {
+        let textValue = null
+        const value = typeof p.type === 'string' ? null : p.type.value
+        if (value === 'color') {
+          textValue = transformToColor(paramsRef.current[p.name])
+        } if (value === 'colorScale') {
+          textValue = transformToColorScale(paramsRef.current[p.name])
+        } else {
+          textValue = paramsRef.current[p.name]
+        }
+
+        if (textValue) {
+          values[p.name] = textValue
+        }
+      }
+    }
     return values;
   }
 
@@ -159,6 +168,7 @@ function Map() {
       ...getBoolValues(),
       ...getNumberValues(),
       ...getColorValues(),
+      ...getTextValues(),
       ...getArrayValues(),
 
       // colorScale: ['#fde725', '#5dc962', '#20908d', '#3a528b', '#440154'],
