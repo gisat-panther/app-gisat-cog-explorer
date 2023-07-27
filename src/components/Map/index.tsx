@@ -5,7 +5,7 @@ import { useRef, useState, useCallback } from 'react';
 
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { createQueryString } from '../../utils/url'
-import { transformToColor, transformToColorScale } from '../../utils/dataTypes'
+import { transformToColor, transformToColorScale, transformToCommaSeparatedNumbers } from '../../utils/dataTypes'
 
 import CogBitmapParams from '@/data/CogBitmapParams'
 import chroma from "chroma-js";
@@ -133,8 +133,10 @@ function Map() {
         const value = typeof p.type === 'string' ? null : p.type.value
         if (value === 'color') {
           textValue = transformToColor(paramsRef.current[p.name])
-        } if (value === 'colorScale') {
+        } else if (value === 'colorScale') {
           textValue = transformToColorScale(paramsRef.current[p.name])
+        } else if (value === 'commaSeparatedNumbers') {
+          textValue = transformToCommaSeparatedNumbers(paramsRef.current[p.name])
         } else {
           textValue = paramsRef.current[p.name]
         }

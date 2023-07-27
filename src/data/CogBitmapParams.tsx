@@ -97,8 +97,7 @@ const params: Array<BitmapDefinition> = [
     description:
       "Set min and max range values or set any array of values to set exact colors to values, if useAutoRange is false, (default [0,255])",
     defaultValue: [0, 255],
-    type: "array",
-    // type: { inputType: "text", value: "commaSeparatedNumbers" },
+    type: { inputType: "text", value: "commaSeparatedNumbers" },
   },
   {
     name: "useColorsBasedOnValues",

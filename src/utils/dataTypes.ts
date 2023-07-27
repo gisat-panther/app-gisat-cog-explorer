@@ -64,6 +64,40 @@ const removeBracket = (string: string) => {
   return string;
 };
 
+export const isValidCommaSeparatedNumbers = (
+  val?: Array<Number | string> | string
+) => {
+  if (val === null || val === "") {
+    return true;
+  } else {
+    const withoutBracket = removeBracket(val ? val?.toString() : "");
+    const splited = withoutBracket
+      .split(",")
+      .map((i) => (i !== "" ? Number(i) : null));
+    return splited && splited.length > 0
+      ? splited.every((i) => Number.isFinite(i))
+      : true;
+  }
+};
+
+export const transformToCommaSeparatedNumbers = (
+  val?: Array<Number | string> | string
+) => {
+  if (
+    typeof val === "string" &&
+    val !== "" &&
+    isValidCommaSeparatedNumbers(val)
+  ) {
+    const withoutBracket = removeBracket(val ? val?.toString() : "");
+    const splited = withoutBracket
+      .split(",")
+      .map((i) => (i !== "" ? Number(i) : null));
+    return splited;
+  } else {
+    return null;
+  }
+};
+
 /**
  * Single color definition is not valid color scale
  * @param scaleString  " [red, [0,0,0]]" || ['#ffffe0', '#8b0000'] || #ffffe0, #8b0000 || [red, [0,0,0]] || "Blues" || "red,blue" || "black" || 255,0,0
