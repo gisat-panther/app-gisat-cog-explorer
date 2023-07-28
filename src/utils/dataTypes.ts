@@ -20,7 +20,57 @@ export const transformToColor = (
       return strVal;
     }
   } else {
-    return val;
+    return null;
+  }
+};
+type pairs = Array<[number, string | number[]]>;
+
+function parseCommaSeparatedValueColorPairs(input: string): pairs {
+  input = input.replace(/\s/g, "").replace(/"/g, "").replace(/'/g, "");
+
+  if (input.startsWith("[[")) {
+    input = input.replace("[", "");
+    input = input.substring(0, input.length - 1);
+  }
+
+  const pairRegex = /\[(\d+),\s*(.*?\]?)\]/g;
+
+  const result: pairs = [];
+
+  let match;
+  while ((match = pairRegex.exec(input)) !== null) {
+    const value = Number(match[1]);
+    const colorStr = match[2];
+
+    let color: string | number[];
+
+    if (colorStr.startsWith("[") && colorStr.endsWith("]")) {
+      color = colorStr
+        .substring(1, colorStr.length - 1)
+        .split(",")
+        .map(Number);
+    } else {
+      color = colorStr;
+    }
+
+    result.push([value, color]);
+  }
+
+  return result;
+}
+/**
+ * Possible inputs
+ * [[100,red]]
+ * [100,red]
+ * [100,[0, 255, 255]],[101,green]
+ * [[100,red],[101,green]]
+ * [       [0, "red"],       [1, [0, 255, 255]],       [2, [0, 255, 255]],       [3, [0, 255, 255]],       [4, [0, 255, 255]],       [5, "green"],       [6, "#0000FF"]     ]
+ */
+export const transformToCommaSeparatedValueColorPairs = (val?: string) => {
+  if (typeof val === "string") {
+    return parseCommaSeparatedValueColorPairs(val) || [];
+  } else {
+    return null;
   }
 };
 
@@ -78,6 +128,11 @@ export const isValidCommaSeparatedNumbers = (
       ? splited.every((i) => Number.isFinite(i))
       : true;
   }
+};
+
+//not possible to validate now
+export const isValidCommaSeparatedValueColorPairs = (val?: string) => {
+  return true;
 };
 
 export const transformToCommaSeparatedNumbers = (

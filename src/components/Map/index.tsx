@@ -5,7 +5,7 @@ import { useRef, useState, useCallback } from 'react';
 
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { createQueryString } from '../../utils/url'
-import { transformToColor, transformToColorScale, transformToCommaSeparatedNumbers } from '../../utils/dataTypes'
+import { transformToColor, transformToColorScale, transformToCommaSeparatedNumbers, transformToCommaSeparatedValueColorPairs } from '../../utils/dataTypes'
 
 import CogBitmapParams from '@/data/CogBitmapParams'
 import chroma from "chroma-js";
@@ -137,6 +137,8 @@ function Map() {
           textValue = transformToColorScale(paramsRef.current[p.name])
         } else if (value === 'commaSeparatedNumbers') {
           textValue = transformToCommaSeparatedNumbers(paramsRef.current[p.name])
+        } else if (value === 'commaSeparatedValueColorPairs') {
+          textValue = transformToCommaSeparatedValueColorPairs(paramsRef.current[p.name])
         } else {
           textValue = paramsRef.current[p.name]
         }
@@ -149,32 +151,11 @@ function Map() {
     return values;
   }
 
-  const getArrayValues = () => {
-
-    const values: params = {}
-
-    for (const p of CogBitmapParams) {
-      if (p.type === 'array') {
-        const asArray = getAsArray(paramsRef.current[p.name])
-        if (asArray) {
-          values[p.name] = asArray
-        }
-      }
-    }
-
-    return values;
-  }
-
   const getParams = () => {
     const values = {
       ...getBoolValues(),
       ...getNumberValues(),
-      ...getColorValues(),
       ...getTextValues(),
-      ...getArrayValues(),
-
-      // colorScale: ['#fde725', '#5dc962', '#20908d', '#3a528b', '#440154'],
-      // colorScaleValueRange: [1,100,200,300,366],
     }
     return values;
   }

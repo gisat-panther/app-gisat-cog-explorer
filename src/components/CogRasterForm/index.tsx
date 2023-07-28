@@ -2,7 +2,7 @@
 
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { createQueryString } from '../../utils/url'
-import { isValidColor, isValidColorScale, isValidCommaSeparatedNumbers } from '../../utils/dataTypes'
+import { isValidColor, isValidColorScale, isValidCommaSeparatedNumbers, isValidCommaSeparatedValueColorPairs } from '../../utils/dataTypes'
 import CogBitmapParams from '@/data/CogBitmapParams'
 import { useCallback } from 'react'
 
@@ -21,6 +21,8 @@ const getValidator = (validatorType: string) => {
       return isValidColorScale
     case 'commaSeparatedNumbers':
       return isValidCommaSeparatedNumbers
+    case 'commaSeparatedValueColorPairs':
+      return isValidCommaSeparatedValueColorPairs
     default:
       return null
   }

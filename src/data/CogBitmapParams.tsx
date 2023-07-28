@@ -113,7 +113,7 @@ const params: Array<BitmapDefinition> = [
     description:
       "Array of value-color pairs, used if useColorsBasedOnValues is true, supports chroma.js color definition such as 'red', [255,0,0], '#FF0000', etc.",
     defaultValue: null,
-    type: "array",
+    type: { inputType: "text", value: "commaSeparatedValueColorPairs" },
   },
   {
     name: "unidentifiedColor",
