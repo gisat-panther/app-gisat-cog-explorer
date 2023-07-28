@@ -1,6 +1,7 @@
 import { useSearchParams, useRouter } from 'next/navigation'
 import { createQueryString } from '../../../utils/url'
 import { ReactNode, useCallback, useState } from 'react'
+import Input from './input'
 
 export default function ({ title, name, defaultValue, children, validation }: { name: string, title: string, defaultValue: any, children: ReactNode, validation?: Function | null }) {
 	const router = useRouter();
@@ -22,7 +23,6 @@ export default function ({ title, name, defaultValue, children, validation }: { 
 
 	return <label className="block">
 		<span className="block text-l font-medium text-slate-700 text-white">{title}</span>
-		<input className={classes} onChange={onChanged} value={urlVal} type='text' placeholder={defaultValue} />
-		{children}
-	</label>
+		<Input classes={classes} onChange={onChanged} value={urlVal} placeholder={defaultValue} />
+	</label >
 }

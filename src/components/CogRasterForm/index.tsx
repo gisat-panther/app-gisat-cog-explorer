@@ -4,7 +4,7 @@ import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { createQueryString } from '../../utils/url'
 import { isValidColor, isValidColorScale, isValidCommaSeparatedNumbers, isValidCommaSeparatedValueColorPairs } from '../../utils/dataTypes'
 import CogBitmapParams from '@/data/CogBitmapParams'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 
 import BoolOption from './options/BoolOption'
 import NumberOption from './options/NumberOption'
@@ -32,8 +32,8 @@ function CogRasterForm() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
   const cogUrl = searchParams.get('cogUrl')
+  const [stateCogUrl, setStateCogUrl] = useState(cogUrl)
 
   const createQueryStringCallback = useCallback(createQueryString, [searchParams])
 
@@ -51,13 +51,14 @@ function CogRasterForm() {
 
   const onUrlChange = (evt: any) => {
     const cogUrl = evt.target.value;
+    setStateCogUrl(cogUrl)
     router.push('?' + createQueryStringCallback('cogUrl', cogUrl, Array.from(searchParams.entries())).toString(), { scroll: false })
   }
 
   return <div className='ptr-form flex flex-col space-y-4 bg-gray-200"'>
     <label className="block">
       <span className="block text-l font-medium text-slate-700 text-white">COG Url</span>
-      <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={onUrlChange} value={cogUrl?.toString()} />
+      <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={onUrlChange} value={stateCogUrl?.toString()} />
       {/* <p className="mt-2 opacity-10 contrast-more:opacity-100 text-slate-600 text-sm">
         We need this to steal your identity.
       </p> */}

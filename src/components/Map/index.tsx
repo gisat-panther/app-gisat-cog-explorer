@@ -259,6 +259,9 @@ function Map() {
       ...(cogBitmapLayer && cogUrl ? [cogBitmapLayer] : [])
     ]}
     onViewChange={onViewChange}
+  // TODO use just ond events
+  // onZoomEnd={onViewChange}
+  // onPanEnd={onViewChange}
   // Tooltip={CustomTooltip}
   />
 }
