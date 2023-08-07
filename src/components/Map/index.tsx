@@ -27,9 +27,14 @@ type LayerDefinition = {
     useChannel?: number | undefined;
     url: undefined | string;
     type: string;
+    hoverable?: boolean;
+    pickable?: boolean;
   };
   type: string;
 }
+
+// const CustomTooltip = () => {
+// }
 
 function Map() {
 
@@ -173,6 +178,8 @@ function Map() {
       layerKey: `CogBitmapLayer_${versionRef.current}`,
       name: 'CogBitmapLayer_',
       options: {
+        // hoverable: true,
+        // pickable: true,
         url: cogUrlRef.current,
         type: 'image',
         ...params,

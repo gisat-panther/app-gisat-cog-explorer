@@ -17,6 +17,7 @@ declare module "@gisatcz/ptr-maps" {
     onViewChange?: function;
     onZoomEnd?: function;
     onPanEnd?: function;
+    Tooltip?: ReactNode;
   }
 
   export class PresentationMap extends React.Component<
