@@ -31,8 +31,8 @@ const params: Array<BitmapDefinition> = [
     name: "alpha",
     title: "alpha",
     description:
-      "Visualise data in specific opacity (if useDataOpacity is false) (default 150)",
-    defaultValue: 150,
+      "Visualise entire image with specified opacity (if useDataOpacity is false), values 0-100 (default 100)",
+    defaultValue: 100,
     type: "number",
   },
   {
