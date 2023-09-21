@@ -145,6 +145,14 @@ const params: Array<BitmapDefinition> = [
     defaultValue: [0, 0, 0, 0],
     type: { inputType: "text", value: "color" },
   },
+  {
+    name: "blurredTexture",
+    title: "blurredTexture",
+    description:
+      "Define blurring behaviour for textures when zoomed in = magnification filter parameter (gl.TEXTURE_MAG_FILTER). Default is true for blurry textures (corresponds to GL.LINEAR), to not blur textures use false (corresponds to GL.NEAREST).",
+    defaultValue: false,
+    type: "bool",
+  },
 ];
 
 export default params;
