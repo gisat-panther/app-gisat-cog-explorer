@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  # Ensure that git uses your token with write access to the repo
+                  token: ${{ secrets.GH_TOKEN }}
+
+            - name: Prepare repository
+              run: git fetch --unshallow --tags
+
+            - name: Set the correct Node version using nvm
+              shell: bash -l {0}
+              run: nvm install
+
+            - name: Cache node modules
+              uses: actions/cache@v1
+              with:
+                  path: node_modules
+                  key: npm-deps-${{ hashFiles('package-lock.json') }}
+                  restore-keys: |
+                      npm-deps-${{ hashFiles('package-lock.json') }}
+
+            - name: deploy
+              run: |
+                  git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+                  npm ci
+                  npm run build
+                  npx gh-pages -d build -u "github-actions-bot <support+actions@github.com>"
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
