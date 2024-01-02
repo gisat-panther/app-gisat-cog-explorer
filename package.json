@@ -19,6 +19,7 @@
     "analytics": "^0.8.9",
     "autoprefixer": "10.4.14",
     "chroma-js": "^2.4.2",
+    "cross-env": "^7.0.3",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.10",
     "next": "^14.0.4",
