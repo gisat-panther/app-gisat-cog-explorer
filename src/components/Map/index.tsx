@@ -184,7 +184,7 @@ function Map() {
         type: 'image',
         ...params,
       },
-      type: 'cog-bitmap',
+      type: 'cogBitmap',
     }
 
 
