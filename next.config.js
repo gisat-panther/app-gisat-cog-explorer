@@ -17,7 +17,7 @@ if (isGithubActions) {
 
 const nextConfig = {
   /* config options here */
-  // output: "export",
+  output: "export",
   assetPrefix: assetPrefix,
   basePath: basePath,
 };
